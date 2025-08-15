@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inteligência Artificial: Do Básico ao Avançado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .logo-placeholder {
+            background-image: url('https://nava.com.br/wp-content/uploads/2024/03/NAVA_Logo_Horizontal_branco_30x574-768x147.png');
+            background-size: 250px 48px;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 250px;
+            height: 48px;
+            border: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .slide {
+            /* width: 1280px; */
+            /* height: 720px; */
+            width: auto;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #0a192f 0%, #001f3f 100%);
+            overflow: hidden;
+        }
+
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            padding: 0 70px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .title span {
+            color: #d831c9;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .date {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            color: #87ceeb;
+        }
+
+        .decoration {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.1) 0%, rgba(135, 206, 235, 0) 70%);
+            top: -100px;
+            left: -100px;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(216, 49, 201, 0.1) 0%, rgba(216, 49, 201, 0) 70%);
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(135, 206, 235, 0.3) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+    </style>
+    <link rel="stylesheet" href="carousel.css">
+    <script src="pagination.js"></script>
+</head>
+
+<body>
+    <div class="slide">
+        <div class="decoration dots"></div>
+        <div class="decoration circle-1"></div>
+        <div class="decoration circle-2"></div>
+
+        <div class="logo-placeholder"></div>
+
+        <div class="slide-content">
+            <h1 class="title"><span>Inteligência Artificial:</span><br>Do Básico ao Avançado</h1>
+            <p class="subtitle">Um treinamento completo sobre conceitos, aplicações e tendências</p>
+        </div>
+
+        <div class="date">2025</div>
+
+        <div class="carousel-navigation">
+            <a href="#" class="nav-btn" title="Slide anterior">‹</a>
+            <div class="slide-counter"></div>
+            <a href="#" class="nav-btn" title="Próximo slide">›</a>
+            <div class="dots-container">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processo de Desenvolvimento de Modelos de IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            /* width: 1280px; */
+            /* height: 720px; */
+            width: auto;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #0a192f 0%, #001f3f 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            padding: 40px 70px 20px;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .title span {
+            color: #d831c9;
+        }
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0 70px 40px;
+        }
+        .process-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            position: relative;
+        }
+        .process-circle {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(0, 31, 63, 0.2);
+            border: 2px solid rgba(135, 206, 235, 0.3);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .process-center {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(0, 31, 63, 0.6);
+            border: 2px solid #d831c9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            z-index: 2;
+        }
+        .process-center-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: #d831c9;
+        }
+        .process-step {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: rgba(0, 31, 63, 0.7);
+            border: 2px solid;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+        .process-step:hover {
+            transform: scale(1.05);
+        }
+        .step-1 {
+            border-color: #87ceeb;
+            top: 20px;
+            left: 180px;
+        }
+        .step-2 {
+            border-color: #87ceeb;
+            top: 100px;
+            right: 60px;
+        }
+        .step-3 {
+            border-color: #007bff;
+            top: 250px;
+            right: 20px;
+        }
+        .step-4 {
+            border-color: #007bff;
+            bottom: 100px;
+            right: 60px;
+        }
+        .step-5 {
+            border-color: #007bff;
+            bottom: 20px;
+            left: 180px;
+        }
+        .step-6 {
+            border-color: #001f3f;
+            bottom: 100px;
+            left: 60px;
+        }
+        .step-7 {
+            border-color: #001f3f;
+            top: 250px;
+            left: 20px;
+        }
+        .step-8 {
+            border-color: #001f3f;
+            top: 100px;
+            left: 60px;
+        }
+        .step-9 {
+            border-color: #d831c9;
+            top: 180px;
+            left: 20px;
+        }
+        .step-number {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .step-1 .step-number, .step-2 .step-number {
+            color: #87ceeb;
+        }
+        .step-3 .step-number, .step-4 .step-number, .step-5 .step-number {
+            color: #007bff;
+        }
+        .step-6 .step-number, .step-7 .step-number, .step-8 .step-number {
+            color: #001f3f;
+        }
+        .step-9 .step-number {
+            color: #d831c9;
+        }
+        .step-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .step-1 .step-icon, .step-2 .step-icon {
+            color: #87ceeb;
+        }
+        .step-3 .step-icon, .step-4 .step-icon, .step-5 .step-icon {
+            color: #007bff;
+        }
+        .step-6 .step-icon, .step-7 .step-icon, .step-8 .step-icon {
+            color: #001f3f;
+        }
+        .step-9 .step-icon {
+            color: #d831c9;
+        }
+        .step-title {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        .step-description {
+            position: absolute;
+            background: rgba(0, 31, 63, 0.9);
+            border: 1px solid;
+            border-radius: 8px;
+            padding: 10px;
+            width: 200px;
+            font-size: 14px;
+            line-height: 1.3;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .process-step:hover .step-description {
+            opacity: 1;
+        }
+        .step-1 .step-description {
+            border-color: #87ceeb;
+            top: 170px;
+            left: 180px;
+        }
+        .step-2 .step-description {
+            border-color: #87ceeb;
+            top: 150px;
+            right: 210px;
+        }
+        .step-3 .step-description {
+            border-color: #007bff;
+            top: 250px;
+            right: 170px;
+        }
+        .step-4 .step-description {
+            border-color: #007bff;
+            bottom: 150px;
+            right: 210px;
+        }
+        .step-5 .step-description {
+            border-color: #007bff;
+            bottom: 170px;
+            left: 180px;
+        }
+        .step-6 .step-description {
+            border-color: #001f3f;
+            bottom: 150px;
+            left: 210px;
+        }
+        .step-7 .step-description {
+            border-color: #001f3f;
+            top: 250px;
+            left: 170px;
+        }
+        .step-8 .step-description {
+            border-color: #001f3f;
+            top: 150px;
+            left: 210px;
+        }
+        .step-9 .step-description {
+            border-color: #d831c9;
+            top: 180px;
+            left: 170px;
+        }
+        .decoration {
+            position: absolute;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.05) 0%, rgba(135, 206, 235, 0) 70%);
+            top: -150px;
+            right: -100px;
+        }
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(216, 49, 201, 0.05) 0%, rgba(216, 49, 201, 0) 70%);
+            bottom: -100px;
+            left: -50px;
+        }
+    </style>
+<link rel="stylesheet" href="carousel.css">
+    <script src="pagination.js"></script>
+</head>
+<body>
+    <div class="slide">
+        <div class="decoration circle-1"></div>
+        <div class="decoration circle-2"></div>
+        
+        <div class="slide-header">
+            <h1 class="title">Processo de <span>Desenvolvimento de Modelos de IA</span></h1>
+        </div>
+        
+        <div class="slide-content">
+            <div class="process-container">
+                <div class="process-circle">
+                    <div class="process-center">
+                        <div class="process-center-text">Ciclo de Desenvolvimento de IA</div>
+                    </div>
+                    
+                    <div class="process-step step-1">
+                        <div class="step-number">1</div>
+                        <i class="material-icons step-icon">lightbulb</i>
+                        <div class="step-title">Definição do Problema</div>
+                        <div class="step-description">Identificar claramente o objetivo de negócio e como a IA pode resolvê-lo</div>
+                    </div>
+                    
+                    <div class="process-step step-2">
+                        <div class="step-number">2</div>
+                        <i class="material-icons step-icon">database</i>
+                        <div class="step-title">Coleta de Dados</div>
+                        <div class="step-description">Obter dados relevantes de diversas fontes (internas, externas, APIs)</div>
+                    </div>
+                    
+                    <div class="process-step step-3">
+                        <div class="step-number">3</div>
+                        <i class="material-icons step-icon">cleaning_services</i>
+                        <div class="step-title">Preparação de Dados</div>
+                        <div class="step-description">Limpeza, normalização, transformação e divisão em conjuntos de treino/teste</div>
+                    </div>
+                    
+                    <div class="process-step step-4">
+                        <div class="step-number">4</div>
+                        <i class="material-icons step-icon">model_training</i>
+                        <div class="step-title">Seleção do Modelo</div>
+                        <div class="step-description">Escolher o algoritmo adequado para o tipo de problema e dados</div>
+                    </div>
+                    
+                    <div class="process-step step-5">
+                        <div class="step-number">5</div>
+                        <i class="material-icons step-icon">fitness_center</i>
+                        <div class="step-title">Treinamento</div>
+                        <div class="step-description">Ajustar os parâmetros do modelo usando os dados de treinamento</div>
+                    </div>
+                    
+                    <div class="process-step step-6">
+                        <div class="step-number">6</div>
+                        <i class="material-icons step-icon">analytics</i>
+                        <div class="step-title">Avaliação</div>
+                        <div class="step-description">Medir o desempenho do modelo com métricas adequadas</div>
+                    </div>
+                    
+                    <div class="process-step step-7">
+                        <div class="step-number">7</div>
+                        <i class="material-icons step-icon">tune</i>
+                        <div class="step-title">Otimização</div>
+                        <div class="step-description">Ajustar hiperparâmetros e melhorar o modelo</div>
+                    </div>
+                    
+                    <div class="process-step step-8">
+                        <div class="step-number">8</div>
+                        <i class="material-icons step-icon">rocket_launch</i>
+                        <div class="step-title">Implementação</div>
+                        <div class="step-description">Implantar o modelo em ambiente de produção</div>
+                    </div>
+                    
+                    <div class="process-step step-9">
+                        <div class="step-number">9</div>
+                        <i class="material-icons step-icon">monitoring</i>
+                        <div class="step-title">Monitoramento</div>
+                        <div class="step-description">Acompanhar o desempenho e realizar manutenção contínua</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-navigation">
+            <a href="#" class="nav-btn" title="Slide anterior">‹</a>
+            <div class="slide-counter"></div>
+            <a href="#" class="nav-btn" title="Próximo slide">›</a>
+            <div class="dots-container">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

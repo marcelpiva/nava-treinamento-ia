@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Preditiva de Backlog → Priorização e Esforço Estimado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            /* width: 1280px; */
+            /* height: 720px; */
+            width: auto;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #0a192f 0%, #001f3f 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            padding: 40px 70px 20px;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .title span {
+            color: #d831c9;
+        }
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0 70px 40px;
+            gap: 20px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .card {
+            background: rgba(0, 31, 63, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        .card-1 {
+            border-color: #87ceeb;
+        }
+        .card-2 {
+            border-color: #007bff;
+        }
+        .card-3 {
+            border-color: #001f3f;
+        }
+        .card-4 {
+            border-color: #d831c9;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+        .card-1 .card-icon {
+            background: rgba(135, 206, 235, 0.2);
+            color: #87ceeb;
+        }
+        .card-2 .card-icon {
+            background: rgba(0, 123, 255, 0.2);
+            color: #007bff;
+        }
+        .card-3 .card-icon {
+            background: rgba(0, 31, 63, 0.3);
+            color: #001f3f;
+        }
+        .card-4 .card-icon {
+            background: rgba(216, 49, 201, 0.2);
+            color: #d831c9;
+        }
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+        }
+        .card-1 .card-title {
+            color: #87ceeb;
+        }
+        .card-2 .card-title {
+            color: #007bff;
+        }
+        .card-3 .card-title {
+            color: #001f3f;
+        }
+        .card-4 .card-title {
+            color: #d831c9;
+        }
+        .card-content {
+            font-size: 18px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .feature-item i {
+            font-size: 16px;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+        .card-1 .feature-item i {
+            color: #87ceeb;
+        }
+        .card-2 .feature-item i {
+            color: #007bff;
+        }
+        .card-3 .feature-item i {
+            color: #001f3f;
+        }
+        .card-4 .feature-item i {
+            color: #d831c9;
+        }
+        .highlight {
+            color: #d831c9;
+            font-weight: 600;
+        }
+        .benefit-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .metric {
+            background: rgba(0, 31, 63, 0.6);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .card-2 .metric {
+            color: #007bff;
+            border: 1px solid rgba(0, 123, 255, 0.3);
+        }
+        .chart-container {
+            height: 160px;
+            margin-top: 10px;
+        }
+        .case-study {
+            margin-top: auto;
+            background: rgba(0, 31, 63, 0.6);
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .case-study-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #d831c9;
+        }
+        .case-study-content {
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        .decoration {
+            position: absolute;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.05) 0%, rgba(135, 206, 235, 0) 70%);
+            top: -150px;
+            right: -100px;
+        }
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(216, 49, 201, 0.05) 0%, rgba(216, 49, 201, 0) 70%);
+            bottom: -100px;
+            left: -50px;
+        }
+    </style>
+<link rel="stylesheet" href="carousel.css">
+    <script src="pagination.js"></script>
+</head>
+<body>
+    <div class="slide">
+        <div class="decoration circle-1"></div>
+        <div class="decoration circle-2"></div>
+        
+        <div class="slide-header">
+            <h1 class="title">Análise Preditiva de Backlog → <span>Priorização e Esforço Estimado</span></h1>
+        </div>
+        
+        <div class="slide-content">
+            <div class="grid-container">
+                <div class="card card-1">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="card-title">Funcionalidades Principais</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <i class="fas fa-history"></i>
+                                <span>Análise automática de <span class="highlight">histórico de projetos</span></span>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <i class="fas fa-calculator"></i>
+                                <span>Previsão de esforço e complexidade de novas tarefas</span>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>Identificação de dependências e riscos</span>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <i class="fas fa-sort-amount-up"></i>
+                                <span>Sugestões de priorização baseadas em valor de negócio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card card-2">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="card-title">Benefícios Estratégicos</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <i class="fas fa-tasks"></i>
+                                <span>Melhor alocação de recursos</span>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Redução de 35% no tempo de planejamento</span>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-metrics">
+                            <div class="metric">
+                                <i class="fas fa-percentage"></i>
+                                <span>+25% previsibilidade</span>
+                            </div>
+                            <div class="metric">
+                                <i class="fas fa-chart-pie"></i>
+                                <span>Otimização do ROI</span>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="benefitsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card card-3">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="card-title">Implementação Prática</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <i class="fas fa-plug"></i>
+                                <span>Integração com <span class="highlight">ferramentas de gestão</span> (JIRA, Azure DevOps)</span>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <i class="fas fa-database"></i>
+                                <span>Treinamento com dados históricos da organização</span>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboards para acompanhamento de métricas</span>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <i class="fas fa-sync-alt"></i>
+                                <span>Feedback contínuo para melhoria do modelo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card card-4">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="card-title">Caso de Sucesso</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="case-study">
+                            <div class="case-study-title">Empresa V</div>
+                            <div class="case-study-content">
+                                Implementou análise preditiva de backlog e obteve resultados expressivos:
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="caseStudyChart"></canvas>
+                        </div>
+                        
+                        <div class="case-study">
+                            <div class="case-study-content">
+                                Aumento de <span class="highlight">35% na satisfação do cliente</span> devido à melhor previsibilidade e priorização das entregas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-navigation">
+        <a href="#" class="nav-btn" title="Slide anterior">‹</a>
+        <div class="slide-counter"></div>
+        <a href="#" class="nav-btn" title="Próximo slide">›</a>
+        <div class="dots-container">
+        </div>
+    </div>
+    
+    <script>
+        // Gráfico de Benefícios
+        const benefitsCtx = document.getElementById('benefitsChart').getContext('2d');
+        new Chart(benefitsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Planejamento', 'Previsibilidade', 'ROI'],
+                datasets: [
+                    {
+                        label: 'Antes da IA',
+                        data: [100, 100, 100],
+                        backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                        borderColor: 'rgba(0, 123, 255, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Depois da IA',
+                        data: [65, 125, 140],
+                        backgroundColor: 'rgba(0, 123, 255, 0.8)',
+                        borderColor: 'rgba(0, 123, 255, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ffffff'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ffffff'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#ffffff',
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Gráfico do Caso de Sucesso
+        const caseStudyCtx = document.getElementById('caseStudyChart').getContext('2d');
+        new Chart(caseStudyCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Tempo de Planejamento', 'Precisão de Estimativas', 'Satisfação do Cliente'],
+                datasets: [
+                    {
+                        label: 'Antes da IA',
+                        data: [100, 100, 100],
+                        backgroundColor: 'rgba(216, 49, 201, 0.2)',
+                        borderColor: 'rgba(216, 49, 201, 0.5)',
+                        borderWidth: 1,
+                        pointBackgroundColor: 'rgba(216, 49, 201, 0.8)'
+                    },
+                    {
+                        label: 'Depois da IA',
+                        data: [60, 160, 135],
+                        backgroundColor: 'rgba(216, 49, 201, 0.4)',
+                        borderColor: 'rgba(216, 49, 201, 0.8)',
+                        borderWidth: 1,
+                        pointBackgroundColor: '#d831c9'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 200,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        pointLabels: {
+                            color: '#ffffff',
+                            font: {
+                                size: 10
+                            }
+                        },
+                        ticks: {
+                            color: '#ffffff',
+                            backdropColor: 'transparent',
+                            font: {
+                                size: 8
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#ffffff',
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

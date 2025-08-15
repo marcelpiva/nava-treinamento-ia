@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            /* width: 1280px; */
+            /* height: 720px; */
+            width: auto;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #0a192f 0%, #001f3f 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            padding: 40px 70px 20px;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .title span {
+            color: #d831c9;
+        }
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0 70px 40px;
+            gap: 30px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 25px;
+            flex-grow: 1;
+        }
+        .card {
+            background: rgba(0, 31, 63, 0.4);
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 4px solid;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        .card-1 {
+            border-color: #87ceeb;
+        }
+        .card-2 {
+            border-color: #007bff;
+        }
+        .card-3 {
+            border-color: #001f3f;
+        }
+        .card-4 {
+            border-color: #d831c9;
+        }
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-1 .card-title {
+            color: #87ceeb;
+        }
+        .card-2 .card-title {
+            color: #007bff;
+        }
+        .card-3 .card-title {
+            color: #001f3f;
+        }
+        .card-4 .card-title {
+            color: #d831c9;
+        }
+        .card-content {
+            font-size: 20px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        .highlight {
+            color: #d831c9;
+            font-weight: 600;
+        }
+        .neural-network {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .neural-network img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .architectures-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        .architecture-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 10px;
+        }
+        .architecture-icon {
+            background: rgba(0, 123, 255, 0.2);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .architecture-icon i {
+            color: #007bff;
+            font-size: 20px;
+        }
+        .architecture-content {
+            flex-grow: 1;
+        }
+        .architecture-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: #007bff;
+        }
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .application-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .application-item i {
+            color: #001f3f;
+            font-size: 18px;
+        }
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .example-item {
+            background: rgba(216, 49, 201, 0.1);
+            border-radius: 6px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .example-item i {
+            color: #d831c9;
+            font-size: 18px;
+        }
+        .decoration {
+            position: absolute;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.05) 0%, rgba(135, 206, 235, 0) 70%);
+            top: -150px;
+            right: -100px;
+        }
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(216, 49, 201, 0.05) 0%, rgba(216, 49, 201, 0) 70%);
+            bottom: -100px;
+            left: -50px;
+        }
+    </style>
+<link rel="stylesheet" href="carousel.css">
+    <script src="pagination.js"></script>
+</head>
+<body>
+    <div class="slide">
+        <div class="decoration circle-1"></div>
+        <div class="decoration circle-2"></div>
+        
+        <div class="slide-header">
+            <h1 class="title"><span>Deep Learning</span></h1>
+        </div>
+        
+        <div class="slide-content">
+            <div class="grid-container">
+                <div class="card card-1">
+                    <div class="card-title">
+                        <i class="material-icons">device_hub</i>
+                        Redes Neurais Artificiais
+                    </div>
+                    <div class="card-content">
+                        Sistemas inspirados na estrutura do <span class="highlight">cérebro humano</span>, compostos por camadas de neurônios interconectados que processam informações de forma hierárquica.
+                        
+                        <div class="neural-network">
+                            <img src="https://sfile.chatglm.cn/images-ppt/3549dcba94ee.jpg" alt="Rede Neural Artificial" style="width: 180px; height: auto;">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card card-2">
+                    <div class="card-title">
+                        <i class="material-icons">architecture</i>
+                        Arquiteturas Principais
+                    </div>
+                    <div class="card-content">
+                        <ul class="architectures-list">
+                            <li class="architecture-item">
+                                <div class="architecture-icon">
+                                    <i class="material-icons">image</i>
+                                </div>
+                                <div class="architecture-content">
+                                    <div class="architecture-name">CNN</div>
+                                    Redes Neurais Convolucionais para imagens
+                                </div>
+                            </li>
+                            
+                            <li class="architecture-item">
+                                <div class="architecture-icon">
+                                    <i class="material-icons">repeat</i>
+                                </div>
+                                <div class="architecture-content">
+                                    <div class="architecture-name">RNN</div>
+                                    Redes Neurais Recorrentes para sequências
+                                </div>
+                            </li>
+                            
+                            <li class="architecture-item">
+                                <div class="architecture-icon">
+                                    <i class="material-icons">translate</i>
+                                </div>
+                                <div class="architecture-content">
+                                    <div class="architecture-name">Transformers</div>
+                                    Para processamento de linguagem
+                                </div>
+                            </li>
+                            
+                            <li class="architecture-item">
+                                <div class="architecture-icon">
+                                    <i class="material-icons">auto_awesome</i>
+                                </div>
+                                <div class="architecture-content">
+                                    <div class="architecture-name">GAN</div>
+                                    Redes Generativas Adversariais
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card card-3">
+                    <div class="card-title">
+                        <i class="material-icons">rocket_launch</i>
+                        Aplicações Avançadas
+                    </div>
+                    <div class="card-content">
+                        <div class="applications-grid">
+                            <div class="application-item">
+                                <i class="material-icons">visibility</i>
+                                <span>Reconhecimento de imagem e vídeo</span>
+                            </div>
+                            <div class="application-item">
+                                <i class="material-icons">chat</i>
+                                <span>Processamento de linguagem</span>
+                            </div>
+                            <div class="application-item">
+                                <i class="material-icons">record_voice_over</i>
+                                <span>Síntese de voz</span>
+                            </div>
+                            <div class="application-item">
+                                <i class="material-icons">directions_car</i>
+                                <span>Veículos autônomos</span>
+                            </div>
+                            <div class="application-item">
+                                <i class="material-icons">healing</i>
+                                <span>Diagnóstico médico</span>
+                            </div>
+                            <div class="application-item">
+                                <i class="material-icons">brush</i>
+                                <span>Geração de arte e conteúdo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card card-4">
+                    <div class="card-title">
+                        <i class="material-icons">emoji_events</i>
+                        Exemplos de Sucesso
+                    </div>
+                    <div class="card-content">
+                        <div class="examples-grid">
+                            <div class="example-item">
+                                <i class="material-icons">smart_toy</i>
+                                <span>GPT-4</span>
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">psychology</i>
+                                <span>Gemini</span>
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">palette</i>
+                                <span>DALL-E</span>
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">image</i>
+                                <span>Midjourney</span>
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">biotech</i>
+                                <span>AlphaFold</span>
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">camera</i>
+                                <span>Sistemas de visão computacional</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-navigation">
+            <a href="#" class="nav-btn" title="Slide anterior">‹</a>
+            <div class="slide-counter"></div>
+            <a href="#" class="nav-btn" title="Próximo slide">›</a>
+            <div class="dots-container">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

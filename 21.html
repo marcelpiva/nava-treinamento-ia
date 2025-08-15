@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramentas e Plataformas para Desenvolvimento de IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .slide {
+            /* width: 1280px; */
+            /* height: 720px; */
+            width: auto;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #0a192f 0%, #001f3f 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-header {
+            padding: 40px 70px 20px;
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .title span {
+            color: #d831c9;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0 70px 40px;
+            gap: 30px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 25px;
+            flex-grow: 1;
+        }
+
+        .card {
+            background: rgba(0, 31, 63, 0.4);
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 4px solid;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-1 {
+            border-color: #87ceeb;
+        }
+
+        .card-2 {
+            border-color: #007bff;
+        }
+
+        .card-3 {
+            border-color: #001f3f;
+        }
+
+        .card-4 {
+            border-color: #d831c9;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-1 .card-title {
+            color: #87ceeb;
+        }
+
+        .card-2 .card-title {
+            color: #007bff;
+        }
+
+        .card-3 .card-title {
+            color: #001f3f;
+        }
+
+        .card-4 .card-title {
+            color: #d831c9;
+        }
+
+        .card-content {
+            font-size: 20px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-icon {
+            background: rgba(135, 206, 235, 0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .card-1 .tool-icon {
+            background: rgba(135, 206, 235, 0.1);
+        }
+
+        .card-2 .tool-icon {
+            background: rgba(0, 123, 255, 0.1);
+        }
+
+        .card-3 .tool-icon {
+            background: rgba(0, 31, 63, 0.2);
+        }
+
+        .card-4 .tool-icon {
+            background: rgba(216, 49, 201, 0.1);
+        }
+
+        .tool-icon i {
+            font-size: 22px;
+        }
+
+        .card-1 .tool-icon i {
+            color: #87ceeb;
+        }
+
+        .card-2 .tool-icon i {
+            color: #007bff;
+        }
+
+        .card-3 .tool-icon i {
+            color: #001f3f;
+        }
+
+        .card-4 .tool-icon i {
+            color: #d831c9;
+        }
+
+        .tool-name {
+            font-weight: 600;
+        }
+
+        .tool-desc {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .highlight {
+            color: #d831c9;
+            font-weight: 600;
+        }
+
+        .decoration {
+            position: absolute;
+            z-index: 0;
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.05) 0%, rgba(135, 206, 235, 0) 70%);
+            top: -150px;
+            right: -100px;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(216, 49, 201, 0.05) 0%, rgba(216, 49, 201, 0) 70%);
+            bottom: -100px;
+            left: -50px;
+        }
+    </style>
+<link rel="stylesheet" href="carousel.css">
+    <script src="pagination.js"></script>
+</head>
+
+<body>
+    <div class="slide">
+        <div class="decoration circle-1"></div>
+        <div class="decoration circle-2"></div>
+
+        <div class="slide-header">
+            <h1 class="title">Ferramentas e Plataformas para <span>Desenvolvimento de IA</span></h1>
+        </div>
+
+        <div class="slide-content">
+            <div class="grid-container">
+                <div class="card card-1">
+                    <div class="card-title">
+                        <i class="material-icons">code</i>
+                        Linguagens de Programação
+                    </div>
+                    <div class="card-content">
+                        <div class="tools-grid">
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">python</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">Python</div>
+                                    <div class="tool-desc">Mais popular, vasta biblioteca</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">functions</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">R</div>
+                                    <div class="tool-desc">Análise estatística</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">coffee</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">Java</div>
+                                    <div class="tool-desc">Escalabilidade</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">memory</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">C++</div>
+                                    <div class="tool-desc">Performance crítica</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-2">
+                    <div class="card-title">
+                        <i class="material-icons">view_module</i>
+                        Frameworks Populares
+                    </div>
+                    <div class="card-content">
+                        <div class="tools-grid">
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">tensorflow</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">TensorFlow</div>
+                                    <div class="tool-desc">Google</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">whatshot</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">PyTorch</div>
+                                    <div class="tool-desc">Facebook</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">scatter_plot</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">scikit-learn</div>
+                                    <div class="tool-desc">Machine Learning</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">layers</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">Keras</div>
+                                    <div class="tool-desc">Redes neurais</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-3">
+                    <div class="card-title">
+                        <i class="material-icons">cloud</i>
+                        Serviços em Nuvem
+                    </div>
+                    <div class="card-content">
+                        <div class="tools-grid">
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">aws</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">AWS</div>
+                                    <div class="tool-desc">Amazon Web Services</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">cloud_queue</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">Azure</div>
+                                    <div class="tool-desc">Microsoft</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">cloud_done</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">GCP</div>
+                                    <div class="tool-desc">Google Cloud Platform</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">psychology</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">IBM Watson</div>
+                                    <div class="tool-desc">Serviços de IA</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-4">
+                    <div class="card-title">
+                        <i class="material-icons">build</i>
+                        Ferramentas Especializadas
+                    </div>
+                    <div class="card-content">
+                        <div class="tools-grid">
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">note</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">Jupyter</div>
+                                    <div class="tool-desc">Desenvolvimento interativo</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">timeline</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">TFX</div>
+                                    <div class="tool-desc">Pipeline completo</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">loop</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">MLflow</div>
+                                    <div class="tool-desc">Ciclo de vida de ML</div>
+                                </div>
+                            </div>
+
+                            <div class="tool-item">
+                                <div class="tool-icon">
+                                    <i class="material-icons">face</i>
+                                </div>
+                                <div>
+                                    <div class="tool-name">Hugging Face</div>
+                                    <div class="tool-desc">Modelos pré-treinados</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-navigation">
+            <a href="#" class="nav-btn" title="Slide anterior">‹</a>
+            <div class="slide-counter"></div>
+            <a href="#" class="nav-btn" title="Próximo slide">›</a>
+            <div class="dots-container">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

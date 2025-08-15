@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casos de Uso Estratégicos para Líderes (Parte 2)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            /* width: 1280px; */
+            /* height: 720px; */
+            width: auto;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #0a192f 0%, #001f3f 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            padding: 40px 70px 20px;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .title span {
+            color: #d831c9;
+        }
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0 70px 40px;
+            gap: 30px;
+        }
+        .use-cases-container {
+            display: flex;
+            gap: 30px;
+            flex-grow: 1;
+        }
+        .use-case-card {
+            flex: 1;
+            background: rgba(0, 31, 63, 0.4);
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 4px solid;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        .card-1 {
+            border-color: #001f3f;
+        }
+        .card-2 {
+            border-color: #d831c9;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+        }
+        .card-1 .card-icon {
+            background: rgba(0, 31, 63, 0.3);
+            color: #001f3f;
+        }
+        .card-2 .card-icon {
+            background: rgba(216, 49, 201, 0.2);
+            color: #d831c9;
+        }
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .card-1 .card-title {
+            color: #001f3f;
+        }
+        .card-2 .card-title {
+            color: #d831c9;
+        }
+        .card-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .benefits-section {
+            margin-bottom: 15px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-1 .section-title {
+            color: #001f3f;
+        }
+        .card-2 .section-title {
+            color: #d831c9;
+        }
+        .benefits-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .benefit-item {
+            background: rgba(0, 31, 63, 0.6);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .card-1 .benefit-item {
+            color: #001f3f;
+            border: 1px solid rgba(0, 31, 63, 0.3);
+        }
+        .card-2 .benefit-item {
+            color: #d831c9;
+            border: 1px solid rgba(216, 49, 201, 0.3);
+        }
+        .chart-container {
+            height: 180px;
+            margin-bottom: 15px;
+        }
+        .example-section {
+            background: rgba(0, 31, 63, 0.6);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: auto;
+        }
+        .example-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #d831c9;
+        }
+        .example-content {
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        .highlight {
+            color: #d831c9;
+            font-weight: 600;
+        }
+        .decoration {
+            position: absolute;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.05) 0%, rgba(135, 206, 235, 0) 70%);
+            top: -150px;
+            right: -100px;
+        }
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(216, 49, 201, 0.05) 0%, rgba(216, 49, 201, 0) 70%);
+            bottom: -100px;
+            left: -50px;
+        }
+    </style>
+<link rel="stylesheet" href="carousel.css">
+    <script src="pagination.js"></script>
+</head>
+<body>
+    <div class="slide">
+        <div class="decoration circle-1"></div>
+        <div class="decoration circle-2"></div>
+        
+        <div class="slide-header">
+            <h1 class="title">Casos de Uso <span>Estratégicos</span> para Líderes (Parte 2)</h1>
+        </div>
+        
+        <div class="slide-content">
+            <div class="use-cases-container">
+                <div class="use-case-card card-1">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h2 class="card-title">Revisão de Código Assistida</h2>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="benefits-section">
+                            <div class="section-title">
+                                <i class="fas fa-chart-line"></i>
+                                Benefícios
+                            </div>
+                            <div class="benefits-list">
+                                <div class="benefit-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Redução de 55% no tempo de revisão</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Diminuição de 70% em bugs pós-implantação</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Aumento de 40% na qualidade do código</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="reviewChart"></canvas>
+                        </div>
+                        
+                        <div class="example-section">
+                            <div class="example-title">Exemplo de Sucesso</div>
+                            <div class="example-content">
+                                Empresa Z implementou revisão de código assistida e reduziu seus <span class="highlight">bugs críticos em 65%</span> no primeiro trimestre, economizando mais de 300 horas de trabalho de correção.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="use-case-card card-2">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h2 class="card-title">Documentação Viva</h2>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="benefits-section">
+                            <div class="section-title">
+                                <i class="fas fa-chart-line"></i>
+                                Benefícios
+                            </div>
+                            <div class="benefits-list">
+                                <div class="benefit-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Redução de 80% no tempo de criação</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Aumento de 90% na precisão da documentação</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Diminuição de 60% em dúvidas de desenvolvimento</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="documentationChart"></canvas>
+                        </div>
+                        
+                        <div class="example-section">
+                            <div class="example-title">Exemplo de Sucesso</div>
+                            <div class="example-content">
+                                Empresa W implementou documentação viva e reduziu o <span class="highlight">tempo de onboarding de novos desenvolvedores em 50%</span>, aumentando significativamente a produtividade da equipe.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-navigation">
+        <a href="#" class="nav-btn" title="Slide anterior">‹</a>
+        <div class="slide-counter"></div>
+        <a href="#" class="nav-btn" title="Próximo slide">›</a>
+        <div class="dots-container">
+        </div>
+    </div>
+    
+    <script>
+        // Gráfico de Revisão de Código
+        const reviewCtx = document.getElementById('reviewChart').getContext('2d');
+        new Chart(reviewCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mês 1', 'Mês 2', 'Mês 3', 'Mês 4', 'Mês 5', 'Mês 6'],
+                datasets: [
+                    {
+                        label: 'Bugs Críticos',
+                        data: [100, 85, 60, 45, 35, 35],
+                        backgroundColor: 'rgba(0, 31, 63, 0.2)',
+                        borderColor: '#001f3f',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ffffff'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ffffff'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#ffffff',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Gráfico de Documentação
+        const documentationCtx = document.getElementById('documentationChart').getContext('2d');
+        new Chart(documentationCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Precisão', 'Atualização', 'Acessibilidade', 'Completude', 'Consistência'],
+                datasets: [
+                    {
+                        label: 'Antes da IA',
+                        data: [40, 30, 50, 45, 35],
+                        backgroundColor: 'rgba(216, 49, 201, 0.2)',
+                        borderColor: 'rgba(216, 49, 201, 0.5)',
+                        borderWidth: 1,
+                        pointBackgroundColor: 'rgba(216, 49, 201, 0.8)'
+                    },
+                    {
+                        label: 'Depois da IA',
+                        data: [90, 85, 80, 95, 85],
+                        backgroundColor: 'rgba(216, 49, 201, 0.4)',
+                        borderColor: 'rgba(216, 49, 201, 0.8)',
+                        borderWidth: 1,
+                        pointBackgroundColor: '#d831c9'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        pointLabels: {
+                            color: '#ffffff',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        ticks: {
+                            color: '#ffffff',
+                            backdropColor: 'transparent'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#ffffff',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
